@@ -1,8 +1,8 @@
-(function(global, factory) {
+(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('http'), require('fs'), require('crypto')) :
         typeof define === 'function' && define.amd ? define(['http', 'fs', 'crypto'], factory) :
-        (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Server = factory(global.http, global.fs, global.crypto));
-}(this, (function(http, fs, crypto) {
+            (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Server = factory(global.http, global.fs, global.crypto));
+}(this, (function (http, fs, crypto) {
     'use strict';
 
     function _interopDefaultLegacy(e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -298,7 +298,7 @@
     var Service_1 = Service;
 
     function uuid() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             let r = Math.random() * 16 | 0,
                 v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
@@ -987,7 +987,7 @@
             const targetCollection = collections.get(collection);
             const result = [];
             // Iterate entries of target collection and compare each property with the given query
-            for (let [key, entry] of[...targetCollection.entries()]) {
+            for (let [key, entry] of [...targetCollection.entries()]) {
                 let match = true;
                 for (let prop in entry) {
                     if (query.hasOwnProperty(prop)) {
@@ -1013,7 +1013,7 @@
             return result;
         }
 
-        return {get, add, set, merge, delete: del, query };
+        return { get, add, set, merge, delete: del, query };
     }
 
 
@@ -1107,8 +1107,8 @@
                     body.password.length == 0) {
                     throw new RequestError$2('Missing fields');
                 } else if (context.protectedStorage.query('users', {
-                        [identity]: body[identity]
-                    }).length !== 0) {
+                    [identity]: body[identity]
+                }).length !== 0) {
                     throw new ConflictError$1(`A user with the same ${identity} already exists`);
                 } else {
                     const newUser = Object.assign({}, body, {
@@ -1399,7 +1399,7 @@
 
     const server = http__default['default'].createServer(requestHandler(plugins, services));
 
-    const port = 3030;
+    const port = process.env.PORT || 3030;
     server.listen(port);
     console.log(`Server started on port ${port}. You can make requests to http://localhost:${port}/`);
     console.log(`Admin panel located at http://localhost:${port}/admin`);
